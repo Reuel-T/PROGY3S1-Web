@@ -1,0 +1,45 @@
+﻿@model ACME_WEB_CLIENT.ViewModels.NewUserVM
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1 class="text-center font-weight-bold">ACME SHOPPING</h1>
+<br />
+<br />
+
+<div class="d-flex align-items-center justify-content-center">
+    <div class="col-md-4 card">
+        <div class="card-body">
+            <h1 class="text-center font-weight-bold">Register</h1>
+            <form asp-action="SignUp">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Username" class="control-label"></label>
+                    <input asp-for="Username" type="text" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PasswordConfirm" class="control-label">Confirm Password</label>
+                    <input asp-for="PasswordConfirm" type="password" class="form-control" />
+                    <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
+                </div>
+                <div class="form-group d-flex align-items-center justify-content-center">
+                    <input type="submit" value="Register" style="width:200px" class="btn blue accent-4 btn-mdb-color" />
+                </div>
+                <div class="d-flex align-items-center justify-content-center">
+                    <a class="btn blue accent-4 btn-mdb-color" asp-action="Login" style="width:200px">Log In Instead</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

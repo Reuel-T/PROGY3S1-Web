@@ -1,0 +1,62 @@
+﻿@using ACME_WEB_CLIENT.Services
+@using ACME_WEB_CLIENT.Models
+
+@inject CartService Cart;
+
+
+<h2 class="text-center font-weight-bold">My Cart</h2>
+
+
+@if (Cart.CartProduct == null)
+{
+    <h3>No Products In cart</h3>
+}
+else
+{
+
+    <div class="card" style="min-height: 30vh; min-width: 50vh">
+        <div class="text-center" style="margin-top: 64px">
+            <h3>@Cart.CartProduct.name</h3>
+            <h3>@Cart.CartProduct.description</h3>
+            <h3>@Cart.CartProduct.price.ToString("C")</h3>
+        </div>
+    </div>
+    <a style="margin-top: 24px" class="btn blue accent-4 btn-mdb-color" asp-action="Index">Back To Products</a>
+    
+    <a style="margin-top: 24px" asp-action="ClearCart" class="btn blue accent-4 btn-mdb-color" role="button">Clear Cart</a>
+
+    <!-- Button trigger modal -->
+    <button type="button" style="margin-top: 24px" class="btn blue accent-4 btn-mdb-color" data-toggle="modal" data-target="#prop">
+        Checkout
+    </button>
+}
+
+
+
+
+
+
+<!-- Modal Checkout -->
+<div class="modal fade" id="prop" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+
+    <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Payment Gateway</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4>Payment Gateway Will Be Implemented Here</h4>
+                <p>Click Checkout to complete the Payment</p>
+            </div>
+            <div class="modal-footer">
+                <a asp-action="CheckOut" class="btn blue accent-4 btn-mdb-color" role="button">Check Out</a>
+            </div>
+        </div>
+    </div>
+</div>

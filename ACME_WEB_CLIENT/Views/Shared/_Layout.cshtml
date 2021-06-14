@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ACME_WEB_CLIENT</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/mdb.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark mdb-color blue accent-4 border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand font-weight-bold" asp-area="" asp-controller="Products" asp-action="Index">ACME SHOPPING</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="btn yellow accent-2 btn-mdb-color font-weight-bold" style="color:black; border-radius:1.5rem" role="button"
+                               asp-area="" asp-controller="Products" asp-action="Index">Products</a>
+                        </li>
+
+                        @if (@HttpContextAccessor.HttpContext.Session.GetInt32("UID") != null)
+                        {
+                            <li class="nav-item">
+                                <a class="btn yellow accent-2 btn-mdb-color font-weight-bold" style="color:black; border-radius:1.5rem" role="button"
+                                   asp-area="" asp-controller="Products" asp-action="Cart">Cart</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn yellow accent-2 btn-mdb-color font-weight-bold" style="color:black; border-radius:1.5rem" role="button"
+                                   asp-area="" asp-controller="Products" asp-action="ViewOrders">My Orders</a>
+                            </li>
+                            @if (@HttpContextAccessor.HttpContext.Session.GetInt32("RID") == 10)
+                            {
+                                <li class="nav-item">
+                                    <a class="btn yellow accent-2 btn-mdb-color font-weight-bold" style="color:black; border-radius:1.5rem" role="button"
+                                       asp-area="" asp-controller="Products" asp-action="Analytics">Analytics</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="btn yellow accent-2 btn-mdb-color font-weight-bold" style="color:black; border-radius:1.5rem" role="button"
+                                   asp-area="" asp-controller="Users" asp-action="LogOut">Log Out</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="btn yellow accent-2 btn-mdb-color font-weight-bold" style="color:black; border-radius:1.5rem" role="button" 
+                                   asp-area="" asp-controller="Users" asp-action="Login">Log In</a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - ACME_WEB_CLIENT - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

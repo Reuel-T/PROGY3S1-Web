@@ -1,0 +1,32 @@
+﻿
+@model IEnumerable<ACME_WEB_CLIENT.Models.ProductOrder>
+
+<h1 class="text-center font-weight-bold" style="margin-top: 32px;">My Orders</h1>
+
+@if (Model.Count() < 1)
+{
+    <div class="card" style="margin-top: 24px;">
+        <h4 style="padding: 16px">No Orders Yet!</h4>
+    </div>
+}
+else
+{
+    @foreach (ProductOrder item in Model)
+    {
+        <div class="card" style="margin-top: 24px;">
+            <div class="card-header">
+                <h4 class="card-title">@item.pidNavigation.name</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Category : @item.pidNavigation.cidNavigation.categoryName</p>
+                <p class="card-text">Price : @item.price.ToString("C")</p>
+                <p class="card-text">Date : @item.date.ToString()</p>
+                <p class="card-text">Quantity : @item.qty.ToString()</p>
+            </div>
+        </div>
+    }
+}
+
+<div>
+    <a class="btn blue accent-4 btn-mdb-color" asp-action="Index">Back To Products</a>
+</div>

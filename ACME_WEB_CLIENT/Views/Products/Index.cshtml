@@ -1,0 +1,89 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+@model IEnumerable<ACME_WEB_CLIENT.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .btn-rounded
+    {
+        border-radius: 1.5rem;
+    }
+
+    .btn-rounded a{
+        color: white;
+        font-weight: bold;
+    }
+
+    a
+    {
+        text-decoration: none;
+    }
+</style>
+
+
+@if (HttpContextAccessor.HttpContext.Session.GetString("USERNAME") != null) 
+{ 
+    <h3 class="font-weight-bold" style="margin-top: 32px">Hi, @HttpContextAccessor.HttpContext.Session.GetString("USERNAME").ToUpper()</h3>
+}
+
+<div class="card" style="padding: 2rem;">
+    <form asp-action="Index">
+        <div class="row">
+            <div class="col">
+                <label for="s" class="control-label">Search</label>
+                <input id="s" name="s" class="form-control" />
+            </div>
+            <div class="col">
+                <label for="c" class="control-label">Category</label>
+                <select id="c" name="c" class="form-control" asp-items="ViewBag.c"></select>
+            </div>
+            <div class="col" style="align-content:center; justify-content: center; display:flex">
+                <input style="justify-self: center; align-self:center" type="submit" value="Search" class="btn blue accent-4 btn-mdb-color" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<h1 class="text-center font-weight-bold" style="margin-top: 32px">Products</h1>
+
+<div class="container" style="margin-top: 32px">
+    <div class="row">
+
+        @foreach (Product item in Model)
+        {
+            <div class="col-sm-6 col-lg-3 py-2">
+                <div class="card h-100">
+                    <img class="card-img-top img-fluid" src="@item.imageUrl" style="min-height: 100px; width:auto" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title font-weight-bold" style="text-align:center; font-size: 18px">@item.name</h4>
+                        <h5 class="card-title font-weight-bold" style="text-align:center; font-size: 14px">Category: @item.cidNavigation.categoryName</h5>
+                        <hr />
+                        <h6 class="card-title font-weight-bold" style="text-align:end">@item.price.ToString("C")</h6>
+                        <hr />
+                        <p class="card-text">@item.description</p>
+                    </div>
+                    <div class="card-footer">
+                        @if (@HttpContextAccessor.HttpContext.Session.GetString("UID") != null)
+                        {
+                            <div class="btn btn-outline blue accent-4 btn-rounded">
+                                @Html.ActionLink("Add to Cart", "AddToCart", new { productID = item.pid })
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="btn btn-outline blue accent-4 btn-rounded">
+                                @Html.ActionLink("Log In to access cart", "Login", "Users")
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

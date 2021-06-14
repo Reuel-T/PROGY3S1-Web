@@ -1,0 +1,47 @@
+﻿@model ACME_WEB_CLIENT.ViewModels.LoginVM
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1 class="text-center font-weight-bold">ACME Shopping</h1>
+<br />
+<br />
+
+<hr />
+<div class="d-flex align-items-center justify-content-center flex-column">
+    <div class="col-md-4 card">
+        <div class="card-body">
+            <h1 class="text-center font-weight-bold">Login</h1>
+            <form asp-action="Login">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Username" class="control-label"></label>
+                    <input asp-for="Username" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group d-flex align-items-center justify-content-center">
+                    <input type="submit" value="Log In" class="btn blue accent-4 btn-mdb-color" style="width:200px" />
+                </div>
+                <div class="d-flex align-items-center justify-content-center">
+                    <a class="btn blue accent-4 btn-mdb-color" asp-action="SignUp" style="width:200px">Register Instead</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+   @if (TempData.ContainsKey("msg")) 
+   {
+        <p>@TempData["msg"].ToString()</p>
+   }
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
