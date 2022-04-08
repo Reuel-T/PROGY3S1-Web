@@ -25,6 +25,7 @@ To search for products, a user can use the card located at the top of the page. 
 Here users can enter their details and log in or choose to register as a user. On a successful login, users will be returned to the product page. 
 
 Once logged in, a user is now presented with more options such as being able to add items to their cart and view previous orders.
+
 ![image](https://user-images.githubusercontent.com/69512501/162478405-36c0acbe-698c-47cc-b8b6-077196b485b4.png)
 
 ### "Making Purchases"
